@@ -1,0 +1,80 @@
+/* This is an incomplete implementation of integer array list. It is highly recommended that you read the zybook to understand array list first*/
+
+import java.lang.AssertionError;
+public class IntArrayList {
+/* We will create an the member variables of an array list */
+	private int[] array=null;  
+	/*This is the first member variable. Note that the variable is set in private. The reason why I am setting this private is because I don't want it
+	 * to be accessible when my int array list is called outside of the method within this class*/
+	private int size=0;
+	/*We also need to keep track the size of the array.*/
+    
+	/*Now we are going to build a constructor. The constructor is going to take an initial length. That tell us how much memory we want to set aside
+	 * for potential data.
+	 */
+	public IntArrayList(int initialLength) {
+		this.array =new int[initialLength]; 
+		this.size=0;
+    }
+	 /*Note that the actual size of array is zero because we have not add any elements to the array yet. The initialLength tell us how much memory we
+     * are going to set aside initially*/
+
+	/*The following method will return us the size of the array, or the number of elements in the array*/
+    public int size() {
+    	return this.size;
+    }
+
+    /*The following method will take an element and add that to the last entry of the  array. 
+     * BE AWARE THIS METHOD IS INCOMPLETE. YOU WILL NEED TO FINISH THIS METHOD FOR THE WORKSHEET*/
+    /*Notice that if you have an array with size n, then the next empty entry would be n (because java count from 0). Therefore, to add
+     * a new element to the array, we set the nth entry of the array to the element. For example:
+     * 		[2,3,_,_] (an array with initialLength=4, but size=2). Now we add(5)
+     * index 0 1 2 3
+     * 
+     * 		[2,3,4,_] 
+     * index 0 1 2 3*/
+    /*After adding the new element, we update the size. A question to ponder: Does the order matter of these two line matters?*/
+    public void add(int element) {
+    	this.array[this.size]=element;	
+    	this.size++;
+    	
+    
+    }
+    /*Notice that if the size of the array reach to the initialLength, any attempt adding more element to the array will result in an overflow.
+     * For this reason, the method is incomplete. To complete this implementation, you will need to resize it first. More will be below*/
+    
+    
+    /* The following method get the element at the specified index. This function assume that the index argument is within range of the IntArrayList
+     * This method is quite straightforward.
+     */
+    public int get(int index) {
+    	return this.array[index];
+    }
+    
+    
+    /*The following method will remove the element at the specified index. 
+     * Again, This function assume that the index argument is within range of the IntArrayList.
+     */
+    /*We can't just set element at index=null, because that will mess up with the indexing for the add method. Consider the following example [2,3,5,7,_,_,_]
+     * This is an An array with initialLength=7, but size 4). We now will remove the second element by setting it to null and update its size [2,_,5,7,_,_,_] 
+     * Now we have an array of size 3. Now will add a new element add(6): [2,_,6,7_,_,_] 
+     * This is obviously not what we want.*/
+    /*Another way to approach this problem is to leave all elements before index alone, and only move back all the entries after back by 1, and setting the entry as null. 
+     * Take the same example as above: [2,3,5,7,_,_,_]. 
+     * We will now remove the second entry by first setting it equals to the third entry: [2,5,5,7,_,_,_] \
+     * Do the same thing with the third entry: [2,5,7,7,_,_,_] 
+     * Now we set the last entry to null and update the size [2,5,7,_,_,_,_]*/
+    public int remove(int index) {
+    	for(int i=index; i<this.size-1; i++){
+    		this.array[i]=this.array[i+1];
+    	}
+    	this.size--;
+    }
+
+    /*You will implement the resize method yourself. You will need to double the size of that internal array without losing any of the data. 
+     *Once you finish the implementation of resize(), you will need to go back and fix the add method.*/
+    
+    private void resize() {
+
+    }
+}
